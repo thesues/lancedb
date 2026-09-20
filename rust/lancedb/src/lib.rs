@@ -378,6 +378,11 @@ pub use connection::connect_namespace;
 
 /// Re-export Lance Session and ObjectStoreRegistry for custom session creation
 pub use crate::database::listing::register_autumn_provider;
+/// Storage-option key naming the Autumn scope a dataset lives in. Re-exported
+/// so a caller does not depend on the provider crate just to spell it, which
+/// would put a second copy of it — and of the Autumn client under it — into
+/// the same dependency graph.
+pub use autumn_lance_provider::OPT_SCOPE as AUTUMN_SCOPE_OPTION;
 pub use lance::session::Session;
 pub use lance_io::object_store::ObjectStoreRegistry;
 
