@@ -14,7 +14,7 @@ use lance::io::{ObjectStore, ObjectStoreParams, WrappingObjectStore};
 use lance_datafusion::utils::StreamingWriteSource;
 use lance_file::version::LanceFileVersion;
 use lance_io::object_store::{ReadDirOptions, StorageOptionsAccessor, StorageOptionsProvider};
-use lance_table::io::commit::commit_handler_from_url;
+use lance_table::io::commit::{ConditionalPutCommitHandler, commit_handler_from_url};
 use object_store::local::LocalFileSystem;
 use snafu::ResultExt;
 
@@ -301,6 +301,22 @@ const ENGINE: &str = "engine";
 const MIRRORED_STORE: &str = "mirroredStore";
 
 /// A connection to LanceDB
+
+/// Lance picks a commit handler from a hard-coded scheme table
+/// (`commit_handler_from_url`), and anything it does not recognise falls to
+/// `UnsafeCommitHandler` — an unconditional manifest put. For `autumn://` that
+/// would throw away the backend's compare-and-swap and let two writers claim
+/// the same version, so the handler is named explicitly here instead.
+///
+/// Both the open and the create path go through this: a handler set on only
+/// one of them is worse than none, because the safe path would hide the unsafe
+/// one until two processes happened to write through it.
+fn autumn_commit_handler(uri: &str) -> Option<Arc<dyn lance_table::io::commit::CommitHandler>> {
+    uri.starts_with("autumn://").then(|| {
+        Arc::new(ConditionalPutCommitHandler) as Arc<dyn lance_table::io::commit::CommitHandler>
+    })
+}
+
 impl ListingDatabase {
     pub(crate) fn build_namespace_client_properties(
         uri: &str,
@@ -811,6 +827,12 @@ impl ListingDatabase {
             store_params.storage_options_accessor = Some(Arc::new(accessor));
         }
 
+        if write_params.commit_handler.is_none()
+            && let Some(handler) = autumn_commit_handler(&self.uri)
+        {
+            write_params.commit_handler = Some(handler);
+        }
+
         write_params.data_storage_version = overrides
             .data_storage_version
             .or(write_params.data_storage_version)
@@ -1200,6 +1222,11 @@ impl Database for ListingDatabase {
             default_params
         });
         read_params.session(self.session.clone());
+        if read_params.commit_handler.is_none()
+            && let Some(handler) = autumn_commit_handler(&table_uri)
+        {
+            read_params.commit_handler = Some(handler);
+        }
 
         let native_table = Arc::new(
             NativeTable::open_with_params(

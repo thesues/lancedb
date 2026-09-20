@@ -16,6 +16,9 @@ crate-type = ["cdylib"]
 
 [dependencies]
 arc-swap = "1.9"
+# Registers the autumn:// scheme so this wheel reaches Autumn with no FUSE
+# mount. Sibling checkout of journeymidnight/autumn-rs.
+autumn-lance-provider = { path = "../../autumn-rs/examples/lancedb/provider" }
 arrow = { workspace = true, features = ["pyarrow"] }
 async-trait.workspace = true
 bytes.workspace = true

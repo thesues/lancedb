@@ -17,10 +17,38 @@ pub struct Session {
     pub(crate) inner: Arc<LanceSession>,
 }
 
+/// A registry that also answers the `autumn://` scheme.
+///
+/// Lance resolves a store from the URL scheme through this registry, which is
+/// how a prebuilt binary reaches a backend it was not compiled to know about.
+/// The provider is registered here, on the session lancedb already owns, so
+/// nothing in lance itself has to be forked.
+pub(crate) fn autumn_aware_registry() -> Arc<ObjectStoreRegistry> {
+    let registry = Arc::new(ObjectStoreRegistry::default());
+    registry.insert(
+        autumn_lance_provider::SCHEME,
+        Arc::new(autumn_lance_provider::AutumnStoreProvider),
+    );
+    registry
+}
+
+/// Install the `autumn://` provider on an already-built session.
+///
+/// `ObjectStoreRegistry::insert` takes `&self`, so a session handed in by the
+/// caller gains the scheme without being rebuilt and without losing the cache
+/// sizes it was created with.
+pub(crate) fn with_autumn_provider(session: Arc<LanceSession>) -> Arc<LanceSession> {
+    session.store_registry().insert(
+        autumn_lance_provider::SCHEME,
+        Arc::new(autumn_lance_provider::AutumnStoreProvider),
+    );
+    session
+}
+
 impl Default for Session {
     fn default() -> Self {
         Self {
-            inner: Arc::new(LanceSession::default()),
+            inner: with_autumn_provider(Arc::new(LanceSession::default())),
         }
     }
 }
@@ -52,7 +80,7 @@ impl Session {
         let session = LanceSession::new(
             index_cache_size,
             metadata_cache_size,
-            Arc::new(ObjectStoreRegistry::default()),
+            autumn_aware_registry(),
         );
 
         Ok(Self {
