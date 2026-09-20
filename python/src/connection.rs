@@ -923,15 +923,9 @@ pub fn connect(
                 oauth_config.try_into().infer_error()?;
             builder = builder.oauth_config(config);
         }
-        // Always hand the builder a session. Its own fallback is
-        // `Arc::new(Session::default())` (see database/listing.rs), which
-        // carries the stock registry and so cannot resolve `autumn://` — a
-        // connect() without an explicit session would fail on the scheme. Same
-        // construction, so cache sizes are unchanged.
-        let session = session
-            .map(|s| s.inner.clone())
-            .unwrap_or_else(|| Arc::new(lancedb::Session::default()));
-        builder = builder.session(crate::session::with_autumn_provider(session));
+        if let Some(session) = session {
+            builder = builder.session(session.inner.clone());
+        }
         Ok(Connection::new(builder.execute().await.infer_error()?))
     })
 }
@@ -962,11 +956,7 @@ pub fn connect_namespace_client(
         parse_namespace_client_pushdown_operations(namespace_client_pushdown_operations)?;
     let ns_properties = namespace_client_properties.unwrap_or_default();
     let storage_options = storage_options.unwrap_or_default();
-    // Same reason as in `connect`: the namespace path materialises its own
-    // default session downstream, so the provider has to be installed here.
-    let session = Some(crate::session::with_autumn_provider(
-        session.map(|s| s.inner.clone()).unwrap_or_default(),
-    ));
+    let session = session.map(|s| s.inner.clone());
 
     // Prefer building the namespace natively from (impl, properties) so the
     // read-freshness provider installed
@@ -1031,14 +1021,9 @@ pub fn connect_namespace(
     if let Some(read_consistency_interval) = read_consistency_interval {
         builder = builder.read_consistency_interval(read_consistency_interval);
     }
-    // Third entry point, and the one a Session-only patch misses entirely:
-    // with no session this hands None down to LanceNamespaceDatabase, whose
-    // DatasetBuilder then falls back to lance's own Session::default() and its
-    // stock registry — "No object store provider found for scheme: 'autumn'".
-    let session = session
-        .map(|s| s.inner.clone())
-        .unwrap_or_else(|| Arc::new(lancedb::Session::default()));
-    builder = builder.session(crate::session::with_autumn_provider(session));
+    if let Some(session) = session {
+        builder = builder.session(session.inner.clone());
+    }
 
     Ok(Connection::new(
         crate::runtime::block_on(builder.execute()).infer_error()?,

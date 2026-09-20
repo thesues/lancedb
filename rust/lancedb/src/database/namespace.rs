@@ -788,7 +788,7 @@ mod tests {
         properties.insert("root".to_string(), root_path);
 
         let embedding_registry = Arc::new(MemoryRegistry::new());
-        let session = Arc::new(lance::session::Session::default());
+        let session = crate::database::listing::default_session();
 
         // Test with all options set
         let result = connect_namespace("dir", properties)

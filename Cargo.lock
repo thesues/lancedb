@@ -628,11 +628,28 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 [[package]]
 name = "autumn-client"
 version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
+dependencies = [
+ "anyhow",
+ "autumn-rpc 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "autumn-stream 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "bytes",
+ "compio",
+ "crc32c",
+ "futures",
+ "thiserror 2.0.18",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "autumn-client"
+version = "0.1.0"
 source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
 dependencies = [
  "anyhow",
- "autumn-rpc",
- "autumn-stream",
+ "autumn-rpc 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
+ "autumn-stream 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
  "bytes",
  "compio",
  "crc32c",
@@ -645,10 +662,23 @@ dependencies = [
 [[package]]
 name = "autumn-common"
 version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
+dependencies = [
+ "anyhow",
+ "autumn-rpc 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "core_affinity",
+ "serde",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-common"
+version = "0.1.0"
 source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
 dependencies = [
  "anyhow",
- "autumn-rpc",
+ "autumn-rpc 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
  "core_affinity",
  "serde",
  "thiserror 2.0.18",
@@ -658,11 +688,25 @@ dependencies = [
 [[package]]
 name = "autumn-lance-provider"
 version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
+dependencies = [
+ "async-trait",
+ "autumn-client 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "autumn-object-store 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "lance-core",
+ "lance-io",
+ "object_store 0.14.1",
+ "url",
+]
+
+[[package]]
+name = "autumn-lance-provider"
+version = "0.1.0"
 source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
 dependencies = [
  "async-trait",
- "autumn-client",
- "autumn-object-store",
+ "autumn-client 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
+ "autumn-object-store 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
  "lance-core",
  "lance-io",
  "object_store 0.14.1",
@@ -672,10 +716,28 @@ dependencies = [
 [[package]]
 name = "autumn-object-store"
 version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
+dependencies = [
+ "async-trait",
+ "autumn-client 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "bytes",
+ "chrono",
+ "compio",
+ "flume",
+ "futures",
+ "object_store 0.14.1",
+ "serde",
+ "serde_json",
+ "uuid",
+]
+
+[[package]]
+name = "autumn-object-store"
+version = "0.1.0"
 source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
 dependencies = [
  "async-trait",
- "autumn-client",
+ "autumn-client 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
  "bytes",
  "chrono",
  "compio",
@@ -690,9 +752,26 @@ dependencies = [
 [[package]]
 name = "autumn-rpc"
 version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
+dependencies = [
+ "autumn-transport 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "bytes",
+ "compio",
+ "crc32c",
+ "ed25519-dalek",
+ "futures",
+ "rancor",
+ "rkyv",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-rpc"
+version = "0.1.0"
 source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
 dependencies = [
- "autumn-transport",
+ "autumn-transport 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
  "bytes",
  "compio",
  "crc32c",
@@ -707,12 +786,12 @@ dependencies = [
 [[package]]
 name = "autumn-stream"
 version = "0.1.0"
-source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
 dependencies = [
  "anyhow",
- "autumn-common",
- "autumn-rpc",
- "autumn-transport",
+ "autumn-common 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "autumn-rpc 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
+ "autumn-transport 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
  "bytes",
  "compio",
  "crc32c",
@@ -721,6 +800,41 @@ dependencies = [
  "libc",
  "reed-solomon-erasure",
  "rkyv",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-stream"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "anyhow",
+ "autumn-common 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
+ "autumn-rpc 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
+ "autumn-transport 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
+ "bytes",
+ "compio",
+ "crc32c",
+ "dashmap",
+ "futures",
+ "libc",
+ "reed-solomon-erasure",
+ "rkyv",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-transport"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55#b0709c5551fd897b89e70ff036eee863e3afcfe4"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "compio",
+ "futures",
+ "libc",
  "thiserror 2.0.18",
  "tracing",
 ]
@@ -6099,6 +6213,7 @@ dependencies = [
  "arrow-select",
  "async-openai",
  "async-trait",
+ "autumn-lance-provider 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=b0709c55)",
  "aws-config",
  "aws-sdk-bedrockruntime",
  "aws-sdk-dynamodb",
@@ -6210,7 +6325,7 @@ dependencies = [
  "arc-swap",
  "arrow",
  "async-trait",
- "autumn-lance-provider",
+ "autumn-lance-provider 0.1.0 (git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c)",
  "bytes",
  "chrono",
  "datafusion-common",

@@ -11,6 +11,10 @@ rust-version.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
+# This fork exists to speak autumn://, so the provider belongs in the core
+# crate rather than in the Python bindings: every consumer gets the scheme,
+# and there is no list of entry points to keep in sync.
+autumn-lance-provider = { git = "https://github.com/journeymidnight/autumn-rs.git", rev = "b0709c55" }
 ahash = { workspace = true }
 arrow = { workspace = true }
 arrow-array = { workspace = true }

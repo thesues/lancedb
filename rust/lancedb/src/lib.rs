@@ -377,6 +377,7 @@ pub use connection::connect;
 pub use connection::connect_namespace;
 
 /// Re-export Lance Session and ObjectStoreRegistry for custom session creation
+pub use crate::database::listing::register_autumn_provider;
 pub use lance::session::Session;
 pub use lance_io::object_store::ObjectStoreRegistry;
 

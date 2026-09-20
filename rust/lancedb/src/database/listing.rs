@@ -302,6 +302,29 @@ const MIRRORED_STORE: &str = "mirroredStore";
 
 /// A connection to LanceDB
 
+/// The session every LanceDB path ends at, with `autumn://` already answered.
+///
+/// Registration used to live in the Python bindings, which meant enumerating
+/// their connect entry points — three of them, and the first attempt covered
+/// two. Building it into the session the core crate creates removes the
+/// enumeration: a caller that never mentions a session still gets the scheme,
+/// and so does every future path that defaults one.
+pub(crate) fn default_session() -> Arc<lance::session::Session> {
+    let session = Arc::new(lance::session::Session::default());
+    register_autumn_provider(&session);
+    session
+}
+
+/// Idempotent, so a session handed in by a caller can be upgraded in place
+/// (`ObjectStoreRegistry::insert` takes `&self`) without losing the cache
+/// sizes it was built with.
+pub fn register_autumn_provider(session: &lance::session::Session) {
+    session.store_registry().insert(
+        autumn_lance_provider::SCHEME,
+        Arc::new(autumn_lance_provider::AutumnStoreProvider),
+    );
+}
+
 /// Lance picks a commit handler from a hard-coded scheme table
 /// (`commit_handler_from_url`), and anything it does not recognise falls to
 /// `UnsafeCommitHandler` — an unconditional manifest put. For `autumn://` that
@@ -477,7 +500,7 @@ impl ListingDatabase {
         let session = request
             .session
             .clone()
-            .unwrap_or_else(|| Arc::new(lance::session::Session::default()));
+            .unwrap_or_else(|| default_session());
         let namespace_root =
             Self::prepare_namespace_root(&request.uri, &options.storage_options, session.clone())
                 .await?;
@@ -582,7 +605,7 @@ impl ListingDatabase {
                 let session = request
                     .session
                     .clone()
-                    .unwrap_or_else(|| Arc::new(lance::session::Session::default()));
+                    .unwrap_or_else(|| default_session());
                 let os_params = ObjectStoreParams {
                     storage_options_accessor: if options.storage_options.is_empty() {
                         None
@@ -657,7 +680,7 @@ impl ListingDatabase {
         namespace_client_properties: HashMap<String, String>,
         session: Option<Arc<lance::session::Session>>,
     ) -> Result<Self> {
-        let session = session.unwrap_or_else(|| Arc::new(lance::session::Session::default()));
+        let session = session.unwrap_or_else(|| default_session());
         let (object_store, base_path) = ObjectStore::from_uri_and_params(
             session.store_registry(),
             path,
@@ -1915,7 +1938,7 @@ mod tests {
     async fn test_concurrent_open_table_reuses_connection_object_store() {
         let tempdir = tempdir().unwrap();
         let uri = tempdir.path().to_str().unwrap();
-        let session = Arc::new(lance::session::Session::default());
+        let session = default_session();
         let request = ConnectRequest {
             uri: uri.to_string(),
             #[cfg(feature = "remote")]
