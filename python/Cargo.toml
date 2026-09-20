@@ -17,8 +17,12 @@ crate-type = ["cdylib"]
 [dependencies]
 arc-swap = "1.9"
 # Registers the autumn:// scheme so this wheel reaches Autumn with no FUSE
-# mount. Sibling checkout of journeymidnight/autumn-rs.
-autumn-lance-provider = { path = "../../autumn-rs/examples/lancedb/provider" }
+# mount. A git dependency pinned to a revision, not a relative path: this fork
+# is public and gets cloned anywhere, so a path would only resolve on a machine
+# that happens to keep autumn-rs beside it. Bump the rev to pick up provider
+# changes. For local work on both trees at once, add a [patch] entry in the
+# root manifest pointing at your checkout.
+autumn-lance-provider = { git = "https://github.com/journeymidnight/autumn-rs.git", rev = "fa0aa5c" }
 arrow = { workspace = true, features = ["pyarrow"] }
 async-trait.workspace = true
 bytes.workspace = true
