@@ -30,6 +30,17 @@ dependencies = [
 
 [[package]]
 name = "ahash"
+version = "0.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "891477e0c6a8957309ee5c45a6368af3ae14bb510732d2684ffa19af310920f9"
+dependencies = [
+ "getrandom 0.2.17",
+ "once_cell",
+ "version_check",
+]
+
+[[package]]
+name = "ahash"
 version = "0.8.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5a15f179cd60c4584b8a8c596927aadc462e27f2ca70c04e0071964a73ba7a75"
@@ -257,7 +268,7 @@ version = "58.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae33dad492b7df00a217563a7b0ef2874df68a0deea1b1a3acf628152f7f7a69"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "arrow-buffer",
  "arrow-data",
  "arrow-schema",
@@ -456,7 +467,7 @@ version = "58.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c58da39eb3d8350ad4a549e5c2bc49284dac554016c69829310350f1731b0aad"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "arrow-array",
  "arrow-buffer",
  "arrow-data",
@@ -613,6 +624,120 @@ name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
+
+[[package]]
+name = "autumn-client"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "anyhow",
+ "autumn-rpc",
+ "autumn-stream",
+ "bytes",
+ "compio",
+ "crc32c",
+ "futures",
+ "thiserror 2.0.18",
+ "tracing",
+ "uuid",
+]
+
+[[package]]
+name = "autumn-common"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "anyhow",
+ "autumn-rpc",
+ "core_affinity",
+ "serde",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-lance-provider"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "async-trait",
+ "autumn-client",
+ "autumn-object-store",
+ "lance-core",
+ "lance-io",
+ "object_store 0.14.1",
+ "url",
+]
+
+[[package]]
+name = "autumn-object-store"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "async-trait",
+ "autumn-client",
+ "bytes",
+ "chrono",
+ "compio",
+ "flume",
+ "futures",
+ "object_store 0.14.1",
+ "serde",
+ "serde_json",
+ "uuid",
+]
+
+[[package]]
+name = "autumn-rpc"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "autumn-transport",
+ "bytes",
+ "compio",
+ "crc32c",
+ "ed25519-dalek",
+ "futures",
+ "rancor",
+ "rkyv",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-stream"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "anyhow",
+ "autumn-common",
+ "autumn-rpc",
+ "autumn-transport",
+ "bytes",
+ "compio",
+ "crc32c",
+ "dashmap",
+ "futures",
+ "libc",
+ "reed-solomon-erasure",
+ "rkyv",
+ "thiserror 2.0.18",
+ "tracing",
+]
+
+[[package]]
+name = "autumn-transport"
+version = "0.1.0"
+source = "git+https://github.com/journeymidnight/autumn-rs.git?rev=fa0aa5c#fa0aa5ca18ee0c4127564e94a1424f485fb284a9"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "compio",
+ "futures",
+ "libc",
+ "thiserror 2.0.18",
+ "tracing",
+]
 
 [[package]]
 name = "aws-config"
@@ -810,7 +935,7 @@ dependencies = [
  "http 0.2.12",
  "http 1.5.0",
  "http-body 1.1.0",
- "lru",
+ "lru 0.16.4",
  "percent-encoding",
  "regex-lite",
  "sha2 0.11.0",
@@ -1669,9 +1794,9 @@ checksum = "9330f8b2ff13f34540b44e946ef35111825727b38d33286ef986142615121801"
 
 [[package]]
 name = "cfg_aliases"
-version = "0.2.1"
+version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "613afe47fcd5fac7ccf1db93babcb082c5994d996f20b8b159f2ad1658eb5724"
+checksum = "f079e83a288787bcd14a6aea84cee5c87a67c5a3e660c30f557a3d24761b3527"
 
 [[package]]
 name = "chacha20"
@@ -1844,6 +1969,185 @@ dependencies = [
 ]
 
 [[package]]
+name = "compio"
+version = "0.19.2"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "compio-buf",
+ "compio-dispatcher",
+ "compio-driver",
+ "compio-fs",
+ "compio-io",
+ "compio-log",
+ "compio-macros",
+ "compio-net",
+ "compio-runtime",
+]
+
+[[package]]
+name = "compio-buf"
+version = "0.8.3"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "arrayvec",
+ "bytes",
+ "libc",
+]
+
+[[package]]
+name = "compio-dispatcher"
+version = "0.11.1"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "compio-driver",
+ "compio-runtime",
+ "flume",
+ "futures-channel",
+]
+
+[[package]]
+name = "compio-driver"
+version = "0.12.5"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "bitflags 2.11.1",
+ "cfg_aliases",
+ "compio-buf",
+ "compio-log",
+ "compio-send-wrapper",
+ "crossbeam-queue",
+ "flume",
+ "futures-util",
+ "io-uring",
+ "libc",
+ "linux-raw-sys",
+ "mod_use",
+ "once_cell",
+ "pastey",
+ "polling",
+ "rustix",
+ "smallvec",
+ "socket2 0.6.3",
+ "synchrony",
+ "thin-cell",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "compio-executor"
+version = "0.1.4"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "compio-log",
+ "compio-send-wrapper",
+ "crossbeam-queue",
+ "loom",
+ "slotmap",
+]
+
+[[package]]
+name = "compio-fs"
+version = "0.12.1"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "cfg_aliases",
+ "compio-buf",
+ "compio-driver",
+ "compio-io",
+ "compio-runtime",
+ "futures-util",
+ "libc",
+ "pin-project-lite",
+ "rustix",
+ "widestring",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "compio-io"
+version = "0.10.1"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "compio-buf",
+ "futures-util",
+ "libc",
+ "pastey",
+ "pin-project-lite",
+ "rustix",
+ "synchrony",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "compio-log"
+version = "0.2.1"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "tracing",
+]
+
+[[package]]
+name = "compio-macros"
+version = "0.2.1"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "darling 0.24.1",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn 3.0.3",
+]
+
+[[package]]
+name = "compio-net"
+version = "0.12.5"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "compio-buf",
+ "compio-driver",
+ "compio-io",
+ "compio-runtime",
+ "either",
+ "futures-util",
+ "libc",
+ "once_cell",
+ "pin-project-lite",
+ "socket2 0.6.3",
+ "synchrony",
+ "widestring",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "compio-runtime"
+version = "0.12.6"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+dependencies = [
+ "compio-buf",
+ "compio-driver",
+ "compio-executor",
+ "compio-io",
+ "compio-log",
+ "compio-send-wrapper",
+ "futures-util",
+ "libc",
+ "pin-project-lite",
+ "scoped-tls",
+ "synchrony",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "compio-send-wrapper"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fa4a63ae089032966c7eb5411267dd14524fb249e6833818b2d6d9d9548bf504"
+dependencies = [
+ "cfg-if 1.0.4",
+ "loom",
+]
+
+[[package]]
 name = "compression-codecs"
 version = "0.4.38"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1971,6 +2275,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "773648b94d0e5d620f64f280777445740e61fe701025087ec8b57f45c791888b"
 
 [[package]]
+name = "core_affinity"
+version = "0.8.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a034b3a7b624016c6e13f5df875747cc25f884156aad2abd12b6c46797971342"
+dependencies = [
+ "libc",
+ "num_cpus",
+ "winapi",
+]
+
+[[package]]
 name = "countio"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2031,6 +2346,15 @@ dependencies = [
  "digest 0.10.7",
  "rustversion",
  "spin 0.10.1",
+]
+
+[[package]]
+name = "crc32c"
+version = "0.6.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a47af21622d091a8f0fb295b88bc886ac74efcc613efc19f5d0b21de5c89e47"
+dependencies = [
+ "rustc_version",
 ]
 
 [[package]]
@@ -2140,7 +2464,7 @@ dependencies = [
  "bitflags 2.11.1",
  "crossterm_winapi",
  "document-features",
- "parking_lot",
+ "parking_lot 0.12.5",
  "rustix",
  "winapi",
 ]
@@ -2242,6 +2566,33 @@ dependencies = [
 ]
 
 [[package]]
+name = "curve25519-dalek"
+version = "4.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "97fb8b7c4503de7d6ae7b42ab72a5a59857b4c937ec27a3d4539dba95b5ab2be"
+dependencies = [
+ "cfg-if 1.0.4",
+ "cpufeatures 0.2.17",
+ "curve25519-dalek-derive",
+ "digest 0.10.7",
+ "fiat-crypto",
+ "rustc_version",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
+name = "curve25519-dalek-derive"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f46882e17999c6cc590af592290432be3bce0428cb0d5f8b6715e4dc7b383eb3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.117",
+]
+
+[[package]]
 name = "daachorse"
 version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2327,7 +2678,7 @@ dependencies = [
  "hashbrown 0.14.5",
  "lock_api",
  "once_cell",
- "parking_lot_core",
+ "parking_lot_core 0.9.12",
 ]
 
 [[package]]
@@ -2369,7 +2720,7 @@ dependencies = [
  "itertools 0.14.0",
  "log",
  "object_store 0.13.2",
- "parking_lot",
+ "parking_lot 0.12.5",
  "sqlparser 0.62.0",
  "tempfile",
  "tokio",
@@ -2398,7 +2749,7 @@ dependencies = [
  "itertools 0.14.0",
  "log",
  "object_store 0.13.2",
- "parking_lot",
+ "parking_lot 0.12.5",
  "tokio",
 ]
 
@@ -2484,7 +2835,7 @@ dependencies = [
  "itertools 0.14.0",
  "log",
  "object_store 0.13.2",
- "parking_lot",
+ "parking_lot 0.12.5",
  "rand 0.9.5",
  "tokio",
  "url",
@@ -2582,7 +2933,7 @@ dependencies = [
  "futures",
  "log",
  "object_store 0.13.2",
- "parking_lot",
+ "parking_lot 0.12.5",
  "rand 0.9.5",
  "tempfile",
  "url",
@@ -2725,7 +3076,7 @@ dependencies = [
  "datafusion-expr",
  "datafusion-physical-expr",
  "datafusion-physical-plan",
- "parking_lot",
+ "parking_lot 0.12.5",
 ]
 
 [[package]]
@@ -2801,7 +3152,7 @@ dependencies = [
  "hashbrown 0.17.1",
  "indexmap 2.14.0",
  "itertools 0.14.0",
- "parking_lot",
+ "parking_lot 0.12.5",
  "petgraph",
  "tokio",
 ]
@@ -2834,7 +3185,7 @@ dependencies = [
  "hashbrown 0.17.1",
  "indexmap 2.14.0",
  "itertools 0.14.0",
- "parking_lot",
+ "parking_lot 0.12.5",
  "pin-project",
 ]
 
@@ -2884,7 +3235,7 @@ dependencies = [
  "itertools 0.14.0",
  "log",
  "num-traits",
- "parking_lot",
+ "parking_lot 0.12.5",
  "pin-project-lite",
  "tokio",
 ]
@@ -2916,7 +3267,7 @@ dependencies = [
  "datafusion-execution",
  "datafusion-expr",
  "datafusion-physical-plan",
- "parking_lot",
+ "parking_lot 0.12.5",
 ]
 
 [[package]]
@@ -3174,6 +3525,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "ed25519"
+version = "2.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "115531babc129696a58c64a4fef0a8bf9e9698629fb97e9e40767d235cfbcd53"
+dependencies = [
+ "pkcs8 0.10.2",
+ "signature 2.2.0",
+]
+
+[[package]]
+name = "ed25519-dalek"
+version = "2.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "70e796c081cee67dc755e1a36a0a172b897fab85fc3f6bc48307991f64e4eca9"
+dependencies = [
+ "curve25519-dalek",
+ "ed25519",
+ "serde",
+ "sha2 0.10.9",
+ "subtle",
+ "zeroize",
+]
+
+[[package]]
 name = "either"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3393,6 +3768,9 @@ name = "fastrand"
 version = "2.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f1f227452a390804cdb637b74a86990f2a7d7ba4b7d5693aac9b4dd6defd8d6"
+dependencies = [
+ "getrandom 0.3.4",
+]
 
 [[package]]
 name = "ff"
@@ -3403,6 +3781,12 @@ dependencies = [
  "rand_core 0.6.4",
  "subtle",
 ]
+
+[[package]]
+name = "fiat-crypto"
+version = "0.2.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "28dea519a9695b9977216879a3ebfddf92f1c08c05d984f8996aecd6ecdc811d"
 
 [[package]]
 name = "find-msvc-tools"
@@ -3465,6 +3849,18 @@ name = "float_next_after"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8bf7cc16383c4b8d58b9905a8509f02926ce3058053c056376248d958c9df1e8"
+
+[[package]]
+name = "flume"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5e139bc46ca777eb5efaf62df0ab8cc5fd400866427e56c68b22e414e53bd3be"
+dependencies = [
+ "fastrand",
+ "futures-core",
+ "futures-sink",
+ "spin 0.9.9",
+]
 
 [[package]]
 name = "fnv"
@@ -4107,6 +4503,9 @@ name = "hashbrown"
 version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
+dependencies = [
+ "ahash 0.7.8",
+]
 
 [[package]]
 name = "hashbrown"
@@ -4114,7 +4513,7 @@ version = "0.14.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e5274423e17b7c9fc20b6e7e208532f9b19825d82dfd615708b70edd83df41f1"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "allocator-api2",
  "rayon",
 ]
@@ -4754,7 +5153,7 @@ version = "0.11.21"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "232929e1d75fe899576a3d5c7416ad0d88dbfbb3c3d6aa00873a7408a50ddb88"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "indexmap 2.14.0",
  "is-terminal",
  "itoa",
@@ -4787,9 +5186,9 @@ dependencies = [
 
 [[package]]
 name = "io-uring"
-version = "0.7.12"
+version = "0.7.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4d09b98f7eace8982db770e4408e7470b028ce513ac28fecdc6bf4c30fe92b62"
+checksum = "ed3bd0ecfbb87805f538bb7b32e5239ca0763890c623e349860ecba69469f2bb"
 dependencies = [
  "bitflags 2.11.1",
  "cfg-if 1.0.4",
@@ -5686,7 +6085,7 @@ dependencies = [
 name = "lancedb"
 version = "0.40.0-beta.3"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "anyhow",
  "arrow",
  "arrow-array",
@@ -5811,6 +6210,7 @@ dependencies = [
  "arc-swap",
  "arrow",
  "async-trait",
+ "autumn-lance-provider",
  "bytes",
  "chrono",
  "datafusion-common",
@@ -6031,6 +6431,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "11d3d7f243d5c5a8b9bb5d6dd2b1602c0cb0b9db1621bafc7ed66e35ff9fe092"
 
 [[package]]
+name = "local-event"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "23ab4b951e96ffb2da6e25cec3d038d0e2930f4c406d1ec194b5120ae41ec6d3"
+
+[[package]]
 name = "lock_api"
 version = "0.4.14"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6053,9 +6459,21 @@ checksum = "419e0dc8046cb947daa77eb95ae174acfbddb7673b4151f56d1eed8e93fbfaca"
 dependencies = [
  "cfg-if 1.0.4",
  "generator",
+ "pin-utils",
  "scoped-tls",
+ "serde",
+ "serde_json",
  "tracing",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "lru"
+version = "0.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e999beba7b6e8345721bd280141ed958096a2e4abdf74f67ff4ce49b4b54e47a"
+dependencies = [
+ "hashbrown 0.12.3",
 ]
 
 [[package]]
@@ -6281,6 +6699,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "mod_use"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "21909324aa58f5c284d91cac514c6d081210901dc372d7c8ea6a9d7e0406097a"
+
+[[package]]
 name = "moka"
 version = "0.12.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6293,7 +6717,7 @@ dependencies = [
  "equivalent",
  "event-listener",
  "futures-util",
- "parking_lot",
+ "parking_lot 0.12.5",
  "portable-atomic",
  "smallvec",
  "tagptr",
@@ -6773,7 +7197,7 @@ dependencies = [
  "http 1.5.0",
  "humantime",
  "itertools 0.14.0",
- "parking_lot",
+ "parking_lot 0.12.5",
  "percent-encoding",
  "thiserror 2.0.18",
  "tokio",
@@ -6808,7 +7232,7 @@ dependencies = [
  "itertools 0.15.0",
  "md-5",
  "nix 0.31.3",
- "parking_lot",
+ "parking_lot 0.12.5",
  "percent-encoding",
  "quick-xml 0.41.0",
  "rand 0.10.1",
@@ -7240,12 +7664,37 @@ checksum = "f38d5652c16fde515bb1ecef450ab0f6a219d619a7274976324d5e377f7dceba"
 
 [[package]]
 name = "parking_lot"
+version = "0.11.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7d17b78036a60663b797adeaee46f5c9dfebb86948d1255007a1d6be0271ff99"
+dependencies = [
+ "instant",
+ "lock_api",
+ "parking_lot_core 0.8.6",
+]
+
+[[package]]
+name = "parking_lot"
 version = "0.12.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "93857453250e3077bd71ff98b6a65ea6621a19bb0f559a85248955ac12c45a1a"
 dependencies = [
  "lock_api",
- "parking_lot_core",
+ "parking_lot_core 0.9.12",
+]
+
+[[package]]
+name = "parking_lot_core"
+version = "0.8.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "60a2cfe6f0ad2bfc16aefa463b497d5c7a5ecd44a23efa72aa342d90177356dc"
+dependencies = [
+ "cfg-if 1.0.4",
+ "instant",
+ "libc",
+ "redox_syscall 0.2.16",
+ "smallvec",
+ "winapi",
 ]
 
 [[package]]
@@ -7256,7 +7705,7 @@ checksum = "2621685985a2ebf1c516881c026032ac7deafcda1a2c9b7850dc81e3dfcb64c1"
 dependencies = [
  "cfg-if 1.0.4",
  "libc",
- "redox_syscall",
+ "redox_syscall 0.5.18",
  "smallvec",
  "windows-link",
 ]
@@ -7281,6 +7730,12 @@ name = "paste"
 version = "1.0.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
+
+[[package]]
+name = "pastey"
+version = "0.2.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2ee67f1008b1ba2321834326597b8e186293b049a023cdef258527550b9935b4"
 
 [[package]]
 name = "path_abs"
@@ -7591,7 +8046,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "725b09f2b5ef31279b66e27bbab63c58d49d8f6696b66b1f46c7eaab95e80f75"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "atoi",
  "atoi_simd",
  "bytemuck",
@@ -7652,7 +8107,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "465f70d3e96b6d0b1a43c358ba451286b8c8bd56696feff020d65702aa33e35c"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "bitflags 2.11.1",
  "bytemuck",
  "chrono",
@@ -7696,7 +8151,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2c8589e418cbe4a48228d64b2a8a40284a82ec3c98817c0c2bcc0267701338b"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "atoi_simd",
  "bytes",
  "chrono",
@@ -7726,7 +8181,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "89b2632b1af668e2058d5f8f916d8fbde3cac63d03ae29a705f598e41dcfeb7f"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "bitflags 2.11.1",
  "glob",
  "once_cell",
@@ -7749,7 +8204,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "efdbdb4d9a92109bc2e0ce8e17af5ae8ab643bb5b7ee9d1d74f0aeffd1fbc95f"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "argminmax",
  "base64 0.21.7",
  "bytemuck",
@@ -7779,7 +8234,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b421d2196f786fdfe162db614c8485f8308fe41575d4de634a39bbe460d1eb6a"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "base64 0.21.7",
  "ethnum",
  "num-traits",
@@ -7823,7 +8278,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2fb8e2302e20c44defd5be8cad9c96e75face63c3a5f609aced8c4ec3b3ac97d"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "bytemuck",
  "chrono-tz 0.8.6",
  "hashbrown 0.14.5",
@@ -7899,7 +8354,7 @@ version = "0.39.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c760b6c698cfe2fbbbd93d6cfb408db14ececfe1d92445dae2229ce1b5b21ae8"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "bytemuck",
  "hashbrown 0.14.5",
  "indexmap 2.14.0",
@@ -7912,6 +8367,20 @@ dependencies = [
  "stacker",
  "sysinfo 0.30.13",
  "version_check",
+]
+
+[[package]]
+name = "polling"
+version = "3.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5d0e4f59085d47d8241c88ead0f274e8a0cb551f3625263c05eb8dd897c34218"
+dependencies = [
+ "cfg-if 1.0.4",
+ "concurrent-queue",
+ "hermit-abi",
+ "pin-project-lite",
+ "rustix",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -8266,10 +8735,10 @@ version = "0.6.24"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9c6658afe513a3b484e3abfdaa0d03ef3c0bbf017542c178dd55f94eb3051f9"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "equivalent",
  "hashbrown 0.16.1",
- "parking_lot",
+ "parking_lot 0.12.5",
 ]
 
 [[package]]
@@ -8485,7 +8954,7 @@ version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "07eed67a16dde2cc3c7f65c072acd8d5b2e53d4aab95067c320db851c7651f29"
 dependencies = [
- "ahash",
+ "ahash 0.8.12",
  "brotli",
  "once_cell",
  "paste",
@@ -8591,6 +9060,15 @@ dependencies = [
 
 [[package]]
 name = "redox_syscall"
+version = "0.2.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fb5a58c1855b4b6819d59012155603f0b22ad30cad752600aadfcb695265519a"
+dependencies = [
+ "bitflags 1.3.2",
+]
+
+[[package]]
+name = "redox_syscall"
 version = "0.5.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ed2bf2547551a7053d6fdfafda3f938979645c44812fbfcda098faae3f1a362d"
@@ -8607,6 +9085,19 @@ dependencies = [
  "getrandom 0.2.17",
  "libredox",
  "thiserror 2.0.18",
+]
+
+[[package]]
+name = "reed-solomon-erasure"
+version = "6.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7263373d500d4d4f505d43a2a662d475a894aa94503a1ee28e9188b5f3960d4f"
+dependencies = [
+ "libm",
+ "lru 0.7.8",
+ "parking_lot 0.11.2",
+ "smallvec",
+ "spin 0.9.9",
 ]
 
 [[package]]
@@ -9539,7 +10030,7 @@ dependencies = [
  "futures-util",
  "log",
  "once_cell",
- "parking_lot",
+ "parking_lot 0.12.5",
  "serial_test_derive",
 ]
 
@@ -9701,6 +10192,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0c790de23124f9ab44544d7ac05d60440adc586479ce501c1d6d7da3cd8c9cf5"
 
 [[package]]
+name = "slotmap"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bdd58c3c93c3d278ca835519292445cb4b0d4dc59ccfdf7ceadaab3f8aeb4038"
+dependencies = [
+ "version_check",
+]
+
+[[package]]
 name = "smallvec"
 version = "1.15.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -9807,6 +10307,9 @@ name = "spin"
 version = "0.9.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3763264f6b73151db08c50ff20d7d8a0b8796e021cdea7ceedad07b80155fa0e"
+dependencies = [
+ "lock_api",
+]
 
 [[package]]
 name = "spin"
@@ -10080,6 +10583,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "synchrony"
+version = "0.1.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9d6d5fbc4583cf3e5eee953506f13853a42ee6b4a21a983dffffb10c765cb80"
+dependencies = [
+ "event-listener",
+ "futures-util",
+ "local-event",
+ "loom",
+]
+
+[[package]]
 name = "synstructure"
 version = "0.13.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -10220,6 +10735,15 @@ checksum = "944ad38adcbb71eaa682c56bceeb079e4ca82b4b3edc2a0fde5cb297b77dac8d"
 dependencies = [
  "syn 2.0.117",
  "test-log-core",
+]
+
+[[package]]
+name = "thin-cell"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a9d3c47fea6e344ef1ac01be266c27945ec30ae8049c3292c897f0878de5c784"
+dependencies = [
+ "synchrony",
 ]
 
 [[package]]
@@ -10397,7 +10921,7 @@ dependencies = [
  "bytes",
  "libc",
  "mio",
- "parking_lot",
+ "parking_lot 0.12.5",
  "pin-project-lite",
  "signal-hook-registry",
  "socket2 0.6.3",
@@ -11187,6 +11711,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "widestring"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "72069c3113ab32ab29e5584db3c6ec55d416895e60715417b5b883a357c3e471"
+
+[[package]]
 name = "winapi"
 version = "0.3.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -11968,3 +12498,18 @@ dependencies = [
  "cc",
  "pkg-config",
 ]
+
+[[patch.unused]]
+name = "compio-quic"
+version = "0.8.2"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+
+[[patch.unused]]
+name = "compio-tls"
+version = "0.10.0"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
+
+[[patch.unused]]
+name = "compio-ws"
+version = "0.4.0"
+source = "git+https://github.com/thesues/compio.git?branch=fix%2Fcreatesocket-blocking-fallback-double-own#dc195069c0816eeabd8debface9d4634c7198ee3"
